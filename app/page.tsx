@@ -36,7 +36,7 @@ export default function Home() {
 
         {/* Right croissant image */}
         <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
-          <Image src="/images/croissant.png" alt="Croissant" fill className="object-contain object-right" priority />
+          <Image src="/images/image-Photoroom.png" alt="Croissant" fill className="object-contain object-right" priority />
         </div>
 
         {/* Hero content */}
