@@ -6,25 +6,33 @@ export default function Logo({ size = "default" }: { size?: "small" | "default" 
   }[size];
   
   const strokeWidth = {
-    small: 2,
-    default: 3,
-    large: 4,
+    small: 3,
+    default: 4,
+    large: 6,
   }[size];
   
   return (
     <span className={`font-display ${textSize} font-bold`}>
-      <span className="text-[#7E3D1B] relative">
+      <span className="relative">
+        {/* White outline layer - rendered behind */}
         <span 
           className="absolute -inset-0.5 text-transparent"
           style={{ 
-            WebkitTextStroke: `${strokeWidth}px #F8F3ED`, 
-            textStroke: `${strokeWidth}px #F8F3ED`,
+            WebkitTextStroke: `${strokeWidth}px white`, 
+            textStroke: `${strokeWidth}px white`,
             zIndex: 0 
           }}
         >
           BrewEase
         </span>
-        <span className="relative z-10">BrewEase</span>
+        
+        {/* Main text with brown color */}
+        <span 
+          className="relative z-10"
+          style={{ color: "#7E3D1B" }}
+        >
+          BrewEase
+        </span>
       </span>
     </span>
   );
