@@ -3,9 +3,11 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Logo from "./logo"
+import { useAuth } from "@/context/auth-context" // Import the authentication context
 
 export default function Navbar() {
   const pathname = usePathname()
+  const { user } = useAuth() // Get the user from the context
 
   return (
     <nav className="py-4 px-6 bg-[#473C38]">
@@ -39,14 +41,22 @@ export default function Navbar() {
           >
             About
           </Link>
-         {user ? (
-            <Link href="/profile" className="text-cream-light hover:text-cream-medium transition-colors">
+
+          {user ? (
+            <Link
+              href="/profile"
+              className="text-cream-light hover:text-cream-medium transition-colors"
+            >
               Profile
             </Link>
           ) : (
-            <Link href="/login" className="text-cream-light hover:text-cream-medium transition-colors">
+            <Link
+              href="/login"
+              className="text-cream-light hover:text-cream-medium transition-colors"
+            >
               Log In
             </Link>
+          )}
         </div>
       </div>
     </nav>
