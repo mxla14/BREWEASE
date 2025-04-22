@@ -39,14 +39,14 @@ export default function Navbar() {
           >
             About
           </Link>
-          <Link
-            href="/login"
-            className={`text-white hover:text-[#F8F3ED]/80 transition-colors ${
-              pathname === "/login" ? "font-semibold" : ""
-            }`}
-          >
-            Log In
-          </Link>
+         {user ? (
+            <Link href="/profile" className="text-cream-light hover:text-cream-medium transition-colors">
+              Profile
+            </Link>
+          ) : (
+            <Link href="/login" className="text-cream-light hover:text-cream-medium transition-colors">
+              Log In
+            </Link>
         </div>
       </div>
     </nav>
