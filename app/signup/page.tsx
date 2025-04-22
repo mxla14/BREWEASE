@@ -53,7 +53,7 @@ export default function SignUp() {
       <div className="md:w-1/2 bg-[#301f0e] relative">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="https://source.unsplash.com/random/1200x800/?coffee-beans"
+            src="public/images/signup.jpg"
             alt="Coffee beans"
             fill
             className="object-cover"
@@ -61,7 +61,7 @@ export default function SignUp() {
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <div className="relative w-48 h-48 mb-4">
               <Image
-                src="https://source.unsplash.com/random/400x400/?latte-art"
+                src="public/images/signup.jpg"
                 alt="Coffee cup with latte art"
                 fill
                 className="object-cover rounded-full"
