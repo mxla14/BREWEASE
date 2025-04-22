@@ -1,7 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+
+import { useState } from "react"
 import { useAuth } from "@/context/auth-context"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -14,7 +15,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { signIn, user } = useAuth() // Make sure user is fetched correctly
+  const { signIn } = useAuth()
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,7 +28,7 @@ export default function Login() {
       if (error) {
         setError(error.message)
       } else {
-        router.push("/") // Redirect to home page after successful login
+        router.push("/")
       }
     } catch (err) {
       setError("An unexpected error occurred")
@@ -36,13 +37,6 @@ export default function Login() {
       setIsLoading(false)
     }
   }
-
-  // Redirect the user if they are already logged in
-  useEffect(() => {
-    if (user) {
-      router.push("/") // Redirect to home if the user is already logged in
-    }
-  }, [user, router])
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -120,19 +114,13 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Only show the login button if the form isn't submitting */}
-            {!isLoading && (
-              <button
-                type="submit"
-                className="w-full bg-[#7e3d1b] text-[#f8f3ed] py-3 rounded-md hover:bg-[#7e3d1b]/80 transition-colors"
-              >
-                Login
-              </button>
-            )}
-
-            {isLoading && (
-              <div className="text-center text-[#f8f3ed] py-3">Logging in...</div>
-            )}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-[#7e3d1b] text-[#f8f3ed] py-3 rounded-md hover:bg-[#7e3d1b]/80 transition-colors"
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
           </form>
 
           <div className="text-center mt-6">
