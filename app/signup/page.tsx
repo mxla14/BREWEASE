@@ -58,14 +58,6 @@ export default function SignUp() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="relative w-48 h-48 mb-4">
-              <Image
-                src="/images/signup.jpg"
-                alt="Coffee cup with latte art"
-                fill
-                className="object-cover rounded-full"
-              />
             </div>
             <h1 className="font-display text-4xl font-bold text-[#f8f3ed] bg-[#301f0e]/50 px-4 py-2 rounded-md">
               BrewEase
