@@ -40,36 +40,26 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Left side - Coffee beans background with logo */}
+      {/* Left side - Background with signup image */}
       <div className="md:w-1/2 bg-[#301f0e] relative">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src="https://source.unsplash.com/random/1200x800/?coffee-beans"
+            src="/images/signup.jpg"
             alt="Coffee beans"
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="relative w-48 h-48 mb-4">
-              <Image
-                src="https://source.unsplash.com/random/400x400/?latte-art"
-                alt="Coffee cup with latte art"
-                fill
-                className="object-cover rounded-full"
-              />
-            </div>
-            <h1 className="font-display text-4xl font-bold text-[#f8f3ed] bg-[#301f0e]/50 px-4 py-2 rounded-md">
-              BrewEase
-            </h1>
-          </div>
         </div>
+        <h1 className="font-poppins text-4xl font-bold text-[#7E3D1B] bg-[#F8F3ED]/50 px-4 py-2 rounded-md absolute bottom-10 left-1/2 transform -translate-x-1/2 border-2 border-[#F8F3ED]">
+          BrewEase
+        </h1>
       </div>
 
       {/* Right side - Login form */}
       <div className="md:w-1/2 bg-[#7e3d1b] p-8 md:p-12 flex items-center justify-center">
         <div className="w-full max-w-md bg-[#301f0e]/80 rounded-lg p-8">
           <div className="text-center mb-8">
-            <h2 className="font-display text-3xl font-bold text-[#f8f3ed]">BrewEase Log In</h2>
+            <h2 className="font-poppins text-3xl font-bold text-[#f8f3ed]">BrewEase Log In</h2>
             <p className="text-[#f8f3ed]/80 mt-2">Welcome Back, please login to your account</p>
           </div>
 
