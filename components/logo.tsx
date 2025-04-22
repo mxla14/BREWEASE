@@ -7,19 +7,28 @@ export default function Logo({ size = "default" }: { size?: "small" | "default" 
     large: "text-4xl",
   }[size];
   
-  const strokeWidth = {
-    small: "2",
-    default: "3",
-    large: "4",
+  // Scale text shadow based on size
+  const shadowSize = {
+    small: "1px",
+    default: "1px",
+    large: "2px",
   }[size];
-
+  
   return (
-    <span className={`font-poppins ${textSize} font-bold`}>
-      <span className="relative text-[#7E3D1B]" style={{ 
-        WebkitTextStroke: `${strokeWidth}px #F8F3ED`,
-        textShadow: `0 0 ${strokeWidth}px #F8F3ED`
-      }}>
-        Brewease
+    <span className={`${textSize} font-bold`} style={{ fontFamily: 'Poppins, sans-serif' }}>
+      <span 
+        className="text-[#7E3D1B]" 
+        style={{ 
+          fontFamily: 'Poppins, sans-serif',
+          textShadow: `
+            -${shadowSize} -${shadowSize} 0 #F8F3ED,
+            ${shadowSize} -${shadowSize} 0 #F8F3ED,
+            -${shadowSize} ${shadowSize} 0 #F8F3ED,
+            ${shadowSize} ${shadowSize} 0 #F8F3ED
+          `
+        }}
+      >
+        BrewEase
       </span>
     </span>
   );
