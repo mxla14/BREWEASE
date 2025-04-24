@@ -56,26 +56,23 @@ export default function ProductDetail() {
         <h1 className="text-[#301F0E] text-3xl font-bold mb-6">Details</h1>
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Product Image - Updated to fit better */}
-          <div className="md:w-1/2 lg:w-2/5">
-            <div
-              className="bg-[#654438] rounded-lg overflow-hidden p-4 flex items-center justify-center"
-              style={{ height: "400px" }}
-            >
-              <div className="relative" style={{ width: "468%", height: "80%" }}>
+          {/* Product Image - Fixed sizing to match the second image */}
+          <div className="md:w-1/3">
+            <div className="bg-[#654438] rounded-lg overflow-hidden p-4 flex items-center justify-center h-80">
+              <div className="relative w-full h-full">
                 <Image
                   src={product.image || "/images/coffee-cup.png"}
                   alt={product.name}
-                  width={400}
-                  height={400}
-                  className="max-w-full max-h-full object-contain"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  className="p-2"
                 />
               </div>
             </div>
           </div>
 
           {/* Product Details */}
-          <div className="md:w-1/2 lg:w-3/5">
+          <div className="md:w-2/3">
             <h2 className="font-display text-3xl font-bold text-[#301F0E] mb-2">{product.name}</h2>
             <p className="text-[#301F0E] mb-6">{product.details}</p>
 
