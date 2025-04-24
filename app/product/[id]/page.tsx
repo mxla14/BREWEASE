@@ -56,16 +56,15 @@ export default function ProductDetail() {
         <h1 className="text-[#301F0E] text-3xl font-bold mb-6">Details</h1>
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Product Image - Fixed sizing to match the second image */}
+          {/* Product Image - Square container like in your reference */}
           <div className="md:w-1/3">
-            <div className="bg-[#654438] rounded-lg overflow-hidden p-4 flex items-center justify-center h-80">
-              <div className="relative w-full h-full">
+            <div className="bg-[#654438] rounded-lg overflow-hidden aspect-square flex items-center justify-center">
+              <div className="relative w-4/5 h-4/5">
                 <Image
                   src={product.image || "/images/coffee-cup.png"}
                   alt={product.name}
                   fill
                   style={{ objectFit: "contain" }}
-                  className="p-2"
                 />
               </div>
             </div>
