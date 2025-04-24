@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Navbar from "@/components/navbar"
 import Image from "next/image"
@@ -20,8 +20,30 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState<Size>("Medium")
   const [quantity, setQuantity] = useState(1)
   const [notes, setNotes] = useState("")
+  const [price, setPrice] = useState(0)
 
   const product = coffeeProducts.find((p) => p.id === params.id)
+
+  // Calculate price based on selected size
+  useEffect(() => {
+    if (product) {
+      let basePrice = product.price || 100
+      
+      switch (selectedSize) {
+        case "Small":
+          setPrice(basePrice - 20)
+          break
+        case "Medium":
+          setPrice(basePrice)
+          break
+        case "Large":
+          setPrice(basePrice + 20)
+          break
+        default:
+          setPrice(basePrice)
+      }
+    }
+  }, [selectedSize, product])
 
   if (!product) {
     return (
@@ -38,7 +60,7 @@ export default function ProductDetail() {
     addToCart({
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: price,
       size: selectedSize,
       quantity,
       notes,
@@ -48,12 +70,18 @@ export default function ProductDetail() {
     router.push("/cart")
   }
 
+  // Format the price to PHP currency
+  const formattedPrice = `PHP ${price}`
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F3ED]">
       <Navbar />
 
       <main className="flex-grow py-8 px-6 md:px-12">
-        <h1 className="text-[#301F0E] text-3xl font-bold mb-6">Details</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-[#301F0E] text-3xl font-bold">Details</h1>
+          <h2 className="text-[#301F0E] text-3xl font-bold">{formattedPrice}</h2>
+        </div>
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Product Image - Square container like in your reference */}
