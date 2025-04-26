@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
@@ -11,92 +12,78 @@ import { useAuth } from "@/context/auth-context"
 export default function Home() {
   const [isBeanBotOpen, setIsBeanBotOpen] = useState(false)
   const { user } = useAuth()
-  
+
   // Get the first three coffee products for the featured section
   const featuredCoffees = coffeeProducts.slice(0, 3)
-  
+
   return (
-    <div className="min-h-screen bg-[#F9F5F1]">
+    <main className="min-h-screen flex flex-col">
       {/* Use the Navbar component */}
       <Navbar />
-      
+
       {/* Hero Section with Coffee Images */}
-      <section className="relative py-16 px-4 md:px-8 lg:px-12">
+      <section className="relative py-16 px-6 overflow-hidden bg-[#473C38]">
         {/* Left coffee cup image */}
-        <div className="absolute left-4 top-24 hidden md:block">
-          <div className="rounded-xl overflow-hidden w-64 h-64 shadow-md"> {/* Added rounded-xl (12px) and adjusted size */}
-            <Image 
-              src="/images/coffee-cup.jpg" 
-              alt="Coffee cup" 
-              width={256} 
-              height={256}
-              className="object-cover w-full h-full" 
-            />
-          </div>
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
+          <Image
+            src="/images/coffee-cup.png"
+            alt="Coffee cup"
+            fill
+            className="object-contain object-left opacity-80"
+            priority
+          />
         </div>
-        
+
         {/* Right croissant image */}
-        <div className="absolute right-4 top-32 hidden md:block">
-          <div className="rounded-xl overflow-hidden w-64 h-64 shadow-md"> {/* Added rounded-xl (12px) and adjusted size */}
-            <Image 
-              src="/images/croissant.jpg" 
-              alt="Croissant" 
-              width={256} 
-              height={256}
-              className="object-cover w-full h-full" 
-            />
-          </div>
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 h-full">
+          <Image src="/images/croissant.png" alt="Croissant" fill className="object-contain object-right" priority />
         </div>
-        
+
         {/* Hero content */}
         <div className="max-w-3xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#3A2A1D] mb-6">
+          <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 text-white">
             Your go-to app for better brews and café convenience — all in one tap.
           </h1>
-          <p className="text-xl md:text-2xl text-[#5D4C3C] mb-8">
-            Brew smarter. Order faster. Enjoy More.
-          </p>
-          <Link href="/order" className="bg-[#7E3D1B] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#6A321A] transition-colors">
-            Order Now
-          </Link>
+          <p className="text-lg mb-8 text-white/80">Brew smarter. Order faster. Enjoy More.</p>
+          <div className="flex justify-center">
+            <Link
+              href="/menu"
+              className="bg-[#7E3D1B] text-white text-lg px-8 py-3 rounded-md inline-block border border-[#F8F3ED] hover:bg-[#7E3D1B]/90 transition-colors"
+            >
+              Order Now
+            </Link>
+          </div>
         </div>
       </section>
-      
+
       {/* Drinks Section */}
-      <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-[#3A2A1D] mb-12">
-            Drinks
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="py-8 px-6 bg-[#F8F3ED]">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-[#301F0E] mb-6">Drinks</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredCoffees.map((coffee) => (
-              <div key={coffee.id} className="bg-[#F9F5F1] rounded-xl overflow-hidden shadow-md">
-                <div className="rounded-xl overflow-hidden h-64 w-full"> {/* Added rounded-xl (12px) */}
-                  <Image
-                    src={coffee.image}
-                    alt={coffee.name}
-                    width={400}
-                    height={300}
-                    className="object-cover w-full h-full"
-                  />
+              <Link
+                href={`/product/${coffee.id}`}
+                key={coffee.id}
+                className="bg-[#654438] rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="p-4">
+                  <div className="relative h-40 mb-3">
+                    <Image src={coffee.image || "/placeholder.svg"} alt={coffee.name} fill className="object-contain" />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="font-display text-xl font-bold text-[#F8F3ED]">{coffee.name}</h3>
+                    <p className="text-[#F8F3ED]/70 text-sm mb-2">{coffee.description}</p>
+                    <p className="text-[#F8F3ED] font-bold">PHP {coffee.price}</p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-[#3A2A1D] mb-2">
-                    {coffee.name}
-                  </h3>
-                  <p className="text-[#5D4C3C] mb-4">
-                    {coffee.description}
-                  </p>
-                  <p className="text-[#7E3D1B] font-bold">
-                    PHP {coffee.price}
-                  </p>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-      
+
       {/* BeanBot Button */}
       <button
         onClick={() => setIsBeanBotOpen(true)}
@@ -105,11 +92,9 @@ export default function Home() {
       >
         <MessageCircle size={24} />
       </button>
-      
+
       {/* BeanBot Dialog */}
-      {isBeanBotOpen && (
-        <BeanBot onClose={() => setIsBeanBotOpen(false)} />
-      )}
-    </div>
+      <BeanBot isOpen={isBeanBotOpen} onClose={() => setIsBeanBotOpen(false)} />
+    </main>
   )
 }
