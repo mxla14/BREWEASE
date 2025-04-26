@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Minus, Plus, MessageCircle } from "lucide-react"
+import { Minus, Plus, MessageCircle, Trash2 } from "lucide-react"
 import Navbar from "@/components/navbar"
 import { useCart } from "@/context/cart-context"
 import BeanBot from "@/components/bean-bot"
@@ -83,7 +83,7 @@ export default function Cart() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => (
-                <div key={`${item.id}-${item.size}`} className="bg-[#654438] rounded-lg p-4 flex items-center">
+                <div key={`${item.id}-${item.size}`} className="bg-[#654438] rounded-lg p-4 flex flex-col sm:flex-row">
                   <div className="relative w-20 h-20 flex-shrink-0">
                     <Image
                       src={item.image || "/images/coffee-cup.png"}
@@ -97,32 +97,47 @@ export default function Cart() {
                     <div className="flex justify-between">
                       <div>
                         <h3 className="font-display text-xl font-bold text-[#F8F3ED]">{item.name}</h3>
-                        <div className="flex items-center">
-                          <span className="text-yellow-400 mr-1">★</span>
-                          <span className="text-[#F8F3ED] text-sm">4.0</span>
-                        </div>
-                        <p className="text-[#F8F3ED]/80 text-sm">Small</p>
-                        <p className="text-[#F8F3ED] text-sm">Price PHP {item.price}</p>
+                        <p className="text-[#F8F3ED]/80 text-sm">Size: {item.size}</p>
+                        <p className="text-[#F8F3ED] text-sm">Price: PHP {item.price}</p>
+                        
+                        {/* Added special requests/notes display */}
+                        {item.notes && (
+                          <div className="mt-2">
+                            <p className="text-[#F8F3ED]/80 text-sm">Special Request:</p>
+                            <p className="text-[#F8F3ED] text-sm italic">"{item.notes}"</p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2">
-                    <span className="text-[#F8F3ED] mr-2">Quantity:</span>
+                  <div className="flex items-center mt-4 sm:mt-0 space-x-2">
+                    <div className="flex items-center mr-4">
+                      <span className="text-[#F8F3ED] mr-2">Qty:</span>
+                      <button
+                        onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                        className="bg-[#301F0E]/30 text-[#F8F3ED] p-1 rounded-md hover:bg-[#301F0E]/50 transition-colors"
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <span className="bg-[#301F0E]/20 text-[#F8F3ED] px-3 py-1 rounded-md min-w-[2rem] text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="bg-[#301F0E]/30 text-[#F8F3ED] p-1 rounded-md hover:bg-[#301F0E]/50 transition-colors"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                    
+                    {/* Added remove button */}
                     <button
-                      onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                      className="bg-[#301F0E]/30 text-[#F8F3ED] p-1 rounded-md hover:bg-[#301F0E]/50 transition-colors"
+                      onClick={() => removeFromCart(item.id)}
+                      className="bg-[#301F0E]/30 text-[#F8F3ED] p-2 rounded-md hover:bg-red-700 transition-colors"
+                      aria-label="Remove item"
                     >
-                      <Minus size={16} />
-                    </button>
-                    <span className="bg-[#301F0E]/20 text-[#F8F3ED] px-3 py-1 rounded-md min-w-[2rem] text-center">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="bg-[#301F0E]/30 text-[#F8F3ED] p-1 rounded-md hover:bg-[#301F0E]/50 transition-colors"
-                    >
-                      <Plus size={16} />
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </div>
@@ -139,7 +154,10 @@ export default function Cart() {
                     <div key={`${item.id}-${item.size}-summary`} className="flex justify-between">
                       <div className="text-[#F8F3ED]">
                         {item.name} x{item.quantity}
-                        <div className="text-[#F8F3ED]/70 text-sm">Small</div>
+                        <div className="text-[#F8F3ED]/70 text-sm">Size: {item.size}</div>
+                      </div>
+                      <div className="text-[#F8F3ED]">
+                        PHP {item.price * item.quantity}
                       </div>
                     </div>
                   ))}
